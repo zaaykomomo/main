@@ -157,6 +157,69 @@
       border: 2px solid #fff;
       box-shadow: 0 0 8px rgba(0,0,0,0.5);
     }
+
+    .home-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.home-btn {
+  position: relative;
+  display: inline-block;
+  padding: 12px 24px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  background: #000;
+  border-radius: 30px;
+  overflow: hidden;
+  font-size: 1em;
+}
+
+.home-btn::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: conic-gradient(
+    red,
+    orange,
+    yellow,
+    lime,
+    aqua,
+    blue,
+    violet,
+    red
+  );
+  z-index: -1;
+  border-radius: 35px;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.home-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  border-radius: 30px;
+  z-index: -1;
+}
+
   </style>
 </head>
 <body>
@@ -164,6 +227,10 @@
   <div class="menu-container">
     <h1>🏠 Zaayko Mo:Mo's</h1>
     <p class="subtitle">"Taste the Delight"</p>
+
+    <div class="home-btn-wrapper">
+    <a href="https://zaaykomomo.github.io/main/home" class="home-btn">Home</a>
+  </div>
 
     <div class="nav-container">
       <div class="menu-nav" id="nav-buttons"></div>

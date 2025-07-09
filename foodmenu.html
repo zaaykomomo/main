@@ -158,66 +158,56 @@
       box-shadow: 0 0 8px rgba(0,0,0,0.5);
     }
 
-    .home-btn-wrapper {
+   .home-btn-wrapper {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
+/* Outer animated border */
 .home-btn {
-  position: relative;
   display: inline-block;
-  padding: 12px 24px;
+  position: relative;
+  padding: 10px 25px;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
-  background: #000;
-  border-radius: 30px;
-  overflow: hidden;
   font-size: 1em;
-}
-
-.home-btn::before {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  right: 4px;
-  bottom: 4px;
+  border-radius: 30px;
   background: conic-gradient(
     red,
     orange,
     yellow,
-    lime,
-    aqua,
+    green,
+    cyan,
     blue,
     violet,
     red
   );
-  z-index: -1;
-  border-radius: 35px;
-  animation: rotate 4s linear infinite;
+  background-size: 200% 200%;
+  animation: rotateGradient 4s linear infinite;
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.home-btn::after {
+/* Inner black fill */
+.home-btn::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #000;
-  border-radius: 30px;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background: black;
+  border-radius: 27px;
   z-index: -1;
+}
+
+    @keyframes rotateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
   </style>

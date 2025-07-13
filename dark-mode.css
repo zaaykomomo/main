@@ -1,4 +1,4 @@
-/* Hide the native checkbox */
+/* Hide native checkbox */
 .dark-mode-toggle input {
   display: none;
 }
@@ -14,7 +14,6 @@
 .dark-mode-toggle .slider {
   background-color: #ccc;
   border-radius: 30px;
-  position: relative;
   width: 100%;
   height: 100%;
   transition: background-color 0.3s;
@@ -24,6 +23,7 @@
   padding: 0 5px;
   box-sizing: border-box;
   font-size: 18px;
+  position: relative;
 }
 
 .dark-mode-toggle .icon {
@@ -49,4 +49,21 @@
 
 .dark-mode-toggle input:not(:checked) + .slider .sun {
   opacity: 1;
+}
+
+/* Animated circle thumb */
+.dark-mode-toggle .slider::before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.dark-mode-toggle input:checked + .slider::before {
+  transform: translateX(30px);
 }

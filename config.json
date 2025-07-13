@@ -1,0 +1,9 @@
+{
+  "dark": {
+    "backgroundColor": "#121212",
+    "textColor": "#e0e0e0",
+    "headerBg": "#222",
+    "buttonBg": "#444",
+    "buttonText": "#fff"
+  }
+}

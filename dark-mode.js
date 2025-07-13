@@ -18,6 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Could not fetch config.json:", err);
     });
 
+   let savedTheme = localStorage.getItem("theme") || "light";
+
+  if (savedTheme === "dark") {
+    body.classList.add("dark-mode");
+    toggle.checked = true;
+  } else {
+    body.classList.remove("dark-mode");
+    toggle.checked = false;
+  }
+
   toggle.addEventListener("change", () => {
     if (toggle.checked) {
       body.classList.add("dark-mode");

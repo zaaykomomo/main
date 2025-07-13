@@ -1,21 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById('darkToggle');
+  const toggle = document.getElementById("darkToggle");
   const body = document.body;
 
-  if (!toggle) return;
+  // Load config.json first
+  fetch("config.json")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.theme === "dark") {
+        body.classList.add("dark-mode");
+        toggle.checked = true;
+      } else {
+        body.classList.remove("dark-mode");
+        toggle.checked = false;
+      }
+    })
+    .catch((err) => {
+      console.error("Could not fetch config.json:", err);
+    });
 
-  if (localStorage.getItem('theme') === 'dark') {
-    body.classList.add('dark-mode');
-    toggle.checked = true;
-  }
-
-  toggle.addEventListener('change', () => {
+  toggle.addEventListener("change", () => {
     if (toggle.checked) {
-      body.classList.add('dark-mode');
-      localStorage.setItem('theme', 'dark');
+      body.classList.add("dark-mode");
     } else {
-      body.classList.remove('dark-mode');
-      localStorage.setItem('theme', 'light');
+      body.classList.remove("dark-mode");
     }
   });
 });

@@ -2,30 +2,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("darkToggle");
   const body = document.body;
 
+  // Load config.json first
   fetch("config.json")
-    .then(res => res.json())
-    .then(config => {
-      let savedTheme = localStorage.getItem("theme") || "light";
-      applyTheme(savedTheme, config);
-      toggle.checked = savedTheme === "dark";
-
-      toggle.addEventListener("change", () => {
-        let newTheme = toggle.checked ? "dark" : "light";
-        applyTheme(newTheme, config);
-        localStorage.setItem("theme", newTheme);
-      });
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.theme === "dark") {
+        body.classList.add("dark-mode");
+        toggle.checked = true;
+      } else {
+        body.classList.remove("dark-mode");
+        toggle.checked = false;
+      }
+    })
+    .catch((err) => {
+      console.error("Could not fetch config.json:", err);
     });
 
-  function applyTheme(themeName, config) {
-    let theme = config[themeName];
-
-    document.body.style.backgroundColor = theme.backgroundColor;
-    document.body.style.color = theme.textColor;
-    document.querySelector("header").style.background = theme.headerBg;
-    document.querySelectorAll(".btn").forEach(btn => {
-      btn.style.background = theme.buttonBg;
-      btn.style.color = theme.buttonText;
-    });
-    // add more elements if needed
-  }
+  toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+      body.classList.add("dark-mode");
+    } else {
+      body.classList.remove("dark-mode");
+    }
+  });
 });

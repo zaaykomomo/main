@@ -5,5 +5,12 @@
     "headerBg": "#222",
     "buttonBg": "#444",
     "buttonText": "#fff"
+  },
+  "light": {
+    "backgroundColor": "#ffffff",
+    "textColor": "#333333",
+    "headerBg": "#D43F00",
+    "buttonBg": "#D43F00",
+    "buttonText": "#ffffff"
   }
 }

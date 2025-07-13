@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" sizes="32x32" href="https://bhagwatiguesthouse.github.io/zaayko/zaayko%20logo.png">
+  <link rel="stylesheet" href="dark-mode.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zaayko Momo's</title>
@@ -341,7 +342,7 @@
   color: #D43F00;
 }
 
-  </style>  
+  </style> 
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -360,6 +361,10 @@
     <li><a href="#menu">Menu</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+      <label class="dark-mode-toggle">
+  <input type="checkbox" id="darkToggle" />
+  <span class="slider"></span>
+</label>
 </nav>
 
   </header>
@@ -681,6 +686,7 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
       });
     });
   </script>
+  <script src="dark-mode.js"></script>
 </body>
 </html>
   

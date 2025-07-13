@@ -44,6 +44,8 @@
     }
     .rating {
       display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
       gap: 10px;
       margin-top: 5px;
     }
@@ -133,8 +135,41 @@
       const successMessage = document.getElementById("successMessage");
       const errorMessage = document.getElementById("errorMessage");
 
+      // Email validation function
+      function isValidEmail(email) {
+        const regex = /^[^@]+@[^@]+\.[^@]+$/;
+        return regex.test(email);
+      }
+
+      // Handle star rating logic
+      const starRadios = form.querySelectorAll(".rating input");
+      const starLabels = form.querySelectorAll(".rating label");
+
+      starLabels.forEach((label, index) => {
+        label.addEventListener("click", () => {
+          const value = 5 - index;
+          if (value === 5) {
+            // Check all stars if 5-star clicked
+            starRadios.forEach(radio => {
+              if (parseInt(radio.value) <= 5) {
+                radio.checked = true;
+              }
+            });
+          }
+        });
+      });
+
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+
+        const email = form.querySelector("#email").value.trim();
+
+        if (!isValidEmail(email)) {
+          errorMessage.textContent = "Please enter a valid email address (e.g. abc@domain.com).";
+          errorMessage.style.display = "block";
+          successMessage.style.display = "none";
+          return;
+        }
 
         const formData = new FormData(form);
 

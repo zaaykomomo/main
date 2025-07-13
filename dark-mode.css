@@ -1,0 +1,82 @@
+/* dark-mode.css */
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background: #222;
+  color: #fff;
+}
+
+body.dark-mode .nav-links li a {
+  color: #ddd;
+}
+
+body.dark-mode .nav-links li a:hover {
+  color: #FFD700;
+}
+
+body.dark-mode .menu-item,
+body.dark-mode .menu-card {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+body.dark-mode .menu-card .item span {
+  color: #eee;
+}
+
+body.dark-mode .menu-card .item span:last-child {
+  color: #FFD700;
+}
+
+body.dark-mode .btn {
+  background: #444;
+  color: #fff;
+}
+
+body.dark-mode .btn:hover {
+  background: #222;
+}
+
+body.dark-mode footer {
+  background: #111;
+  color: #aaa;
+}
+
+body.dark-mode .contact-form {
+  background: #1a1a1a;
+  color: #ccc;
+}
+
+body.dark-mode .contact-form input,
+body.dark-mode .contact-form textarea {
+  background: #333;
+  color: #eee;
+  border-color: #555;
+}
+
+body.dark-mode .contact-form button {
+  background: #555;
+}
+
+body.dark-mode .contact-form button:hover {
+  background: #777;
+}
+
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode .logo {
+  color: #fff;
+}
+
+body.dark-mode #hero h1 {
+  -webkit-text-stroke: 1px #fff;
+}
+
+body.dark-mode #hero p {
+  -webkit-text-stroke: 1px #ddd;
+}

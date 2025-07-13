@@ -341,116 +341,7 @@
   color: #D43F00;
 }
 
-  </style>
-  <style>
-    /* Dark Mode Toggle Switch */
-.dark-mode-toggle {
-  margin-left: auto;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-}
-
-.dark-mode-toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0; left: 0;
-  right: 0; bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider::before {
-  position: absolute;
-  content: "";
-  height: 18px; width: 18px;
-  left: 3px; bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #333;
-}
-
-input:checked + .slider::before {
-  transform: translateX(26px);
-}
-
-/* Dark Mode Styles */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-body.dark-mode header {
-  background: #222;
-  color: #fff;
-}
-
-body.dark-mode .nav-links li a {
-  color: #ddd;
-}
-
-body.dark-mode .nav-links li a:hover {
-  color: #FFD700;
-}
-
-body.dark-mode .menu-item,
-body.dark-mode .menu-card {
-  background: #1e1e1e;
-  color: #eee;
-}
-
-body.dark-mode .menu-card .item span:last-child {
-  color: #FFD700;
-}
-
-body.dark-mode .btn {
-  background: #444;
-  color: #fff;
-}
-
-body.dark-mode .btn:hover {
-  background: #222;
-}
-
-body.dark-mode footer {
-  background: #111;
-  color: #aaa;
-}
-
-body.dark-mode .contact-form {
-  background: #1a1a1a;
-  color: #ccc;
-}
-
-body.dark-mode .contact-form input,
-body.dark-mode .contact-form textarea {
-  background: #333;
-  color: #eee;
-  border-color: #555;
-}
-
-body.dark-mode .contact-form button {
-  background: #555;
-}
-
-body.dark-mode .contact-form button:hover {
-  background: #777;
-}
-
-    </style>
-  
+  </style>  
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -462,10 +353,6 @@ body.dark-mode .contact-form button:hover {
     <span></span>
   </div>
   <div class="logo">Zaayko Momo’s</div>
-      <label class="dark-mode-toggle">
-  <input type="checkbox" id="darkToggle" />
-  <span class="slider"></span>
-</label>
   <ul class="nav-links">
     <li class="close-btn"><a href="#">× Close</a></li>
     <li><a href="#hero">Home</a></li>
@@ -794,28 +681,6 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
       });
     });
   </script>
-  <script>
-// Dark Mode Toggle Logic
-const toggle = document.getElementById('darkToggle');
-const body = document.body;
-
-// Check if saved theme exists
-if (localStorage.getItem('theme') === 'dark') {
-  body.classList.add('dark-mode');
-  toggle.checked = true;
-}
-
-toggle.addEventListener('change', () => {
-  if (toggle.checked) {
-    body.classList.add('dark-mode');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    body.classList.remove('dark-mode');
-    localStorage.setItem('theme', 'light');
-  }
-});
-</script>
-
 </body>
 </html>
   

@@ -1,82 +1,52 @@
-/* dark-mode.css */
-
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+/* Hide the native checkbox */
+.dark-mode-toggle input {
+  display: none;
 }
 
-body.dark-mode header {
-  background: #222;
-  color: #fff;
+.dark-mode-toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
 }
 
-body.dark-mode .nav-links li a {
-  color: #ddd;
+.dark-mode-toggle .slider {
+  background-color: #ccc;
+  border-radius: 30px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+  box-sizing: border-box;
+  font-size: 18px;
 }
 
-body.dark-mode .nav-links li a:hover {
-  color: #FFD700;
+.dark-mode-toggle .icon {
+  opacity: 0.3;
+  transition: opacity 0.3s;
 }
 
-body.dark-mode .menu-item,
-body.dark-mode .menu-card {
-  background: #1e1e1e;
-  color: #eee;
+.dark-mode-toggle input:checked + .slider {
+  background-color: #333;
 }
 
-body.dark-mode .menu-card .item span {
-  color: #eee;
+.dark-mode-toggle input:checked + .slider .moon {
+  opacity: 1;
 }
 
-body.dark-mode .menu-card .item span:last-child {
-  color: #FFD700;
+.dark-mode-toggle input:checked + .slider .sun {
+  opacity: 0.3;
 }
 
-body.dark-mode .btn {
-  background: #444;
-  color: #fff;
+.dark-mode-toggle input:not(:checked) + .slider .moon {
+  opacity: 0.3;
 }
 
-body.dark-mode .btn:hover {
-  background: #222;
-}
-
-body.dark-mode footer {
-  background: #111;
-  color: #aaa;
-}
-
-body.dark-mode .contact-form {
-  background: #1a1a1a;
-  color: #ccc;
-}
-
-body.dark-mode .contact-form input,
-body.dark-mode .contact-form textarea {
-  background: #333;
-  color: #eee;
-  border-color: #555;
-}
-
-body.dark-mode .contact-form button {
-  background: #555;
-}
-
-body.dark-mode .contact-form button:hover {
-  background: #777;
-}
-
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode p,
-body.dark-mode .logo {
-  color: #fff;
-}
-
-body.dark-mode #hero h1 {
-  -webkit-text-stroke: 1px #fff;
-}
-
-body.dark-mode #hero p {
-  -webkit-text-stroke: 1px #ddd;
+.dark-mode-toggle input:not(:checked) + .slider .sun {
+  opacity: 1;
 }

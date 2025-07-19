@@ -78,149 +78,171 @@
   </section>
 
   <script>
-    const menuUrl = 'https://bhagwatiguesthouse.github.io/zaayko/menu.json';
-    const navButtons = document.getElementById('nav-buttons');
-    const menuSections = document.getElementById('menu-sections');
-    const cartItems = document.getElementById('cart-items');
-    const totalAmountEl = document.getElementById('total-amount');
-    const cartIcon = document.getElementById('cart-icon');
-    const cartCount = document.getElementById('cart-count');
+  const menuUrl = 'https://bhagwatiguesthouse.github.io/zaayko/menu.json';
+  const navButtons = document.getElementById('nav-buttons');
+  const menuSections = document.getElementById('menu-sections');
+  const cartItems = document.getElementById('cart-items');
+  const totalAmountEl = document.getElementById('total-amount');
+  const cartIcon = document.getElementById('cart-icon');
+  const cartCount = document.getElementById('cart-count');
 
-    let cart = [];
+  let cart = [];
 
-    fetch(menuUrl)
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(section => {
-          const navBtn = document.createElement('button');
-          navBtn.textContent = section.category;
-          navBtn.onclick = () => showCategory(section.category);
-          navButtons.appendChild(navBtn);
+  fetch(menuUrl)
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(section => {
+        const navBtn = document.createElement('button');
+        navBtn.textContent = section.category;
+        navBtn.onclick = () => showCategory(section.category);
+        navButtons.appendChild(navBtn);
 
-          const sectionDiv = document.createElement('div');
-          sectionDiv.classList.add('menu-section');
-          sectionDiv.dataset.category = section.category;
-          sectionDiv.innerHTML = `<h3>${section.title}</h3>`;
-          section.items.forEach(item => {
-            sectionDiv.innerHTML += `
-              <div class="menu-item">
-                <div style='display:flex; align-items:center;'>
-                  <img src="${section.image}" alt="${item.name}">
-                  <div>
-                    <strong>${item.name}</strong><br>${item.price}
-                  </div>
+        const sectionDiv = document.createElement('div');
+        sectionDiv.classList.add('menu-section');
+        sectionDiv.dataset.category = section.category;
+        sectionDiv.innerHTML = `<h3>${section.title}</h3>`;
+        section.items.forEach(item => {
+          sectionDiv.innerHTML += `
+            <div class="menu-item">
+              <div style='display:flex; align-items:center;'>
+                <img src="${section.image}" alt="${item.name}">
+                <div>
+                  <strong>${item.name}</strong><br>${item.price}
                 </div>
-                <button onclick='addToCart("${item.name}", "${item.price}")'>Add</button>
-              </div>`;
-          });
-          menuSections.appendChild(sectionDiv);
+              </div>
+              <button onclick='addToCart("${item.name}", "${item.price}")'>Add</button>
+            </div>`;
         });
+        menuSections.appendChild(sectionDiv);
       });
+    });
 
-    function showCategory(category) {
-      document.querySelectorAll('.menu-section').forEach(sec => {
-        sec.style.display = sec.dataset.category === category ? 'block' : 'none';
-      });
+  function showCategory(category) {
+    document.querySelectorAll('.menu-section').forEach(sec => {
+      sec.style.display = sec.dataset.category === category ? 'block' : 'none';
+    });
+  }
+
+  function addToCart(name, price) {
+    const numericPrice = parseInt(price.replace(/\D/g, ''));
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ name, price: numericPrice, qty: 1 });
     }
+    updateCart();
+  }
 
-    function addToCart(name, price) {
-      const numericPrice = parseInt(price.replace(/\D/g, ''));
-      const existing = cart.find(item => item.name === name);
-      if (existing) {
-        existing.qty++;
-      } else {
-        cart.push({ name, price: numericPrice, qty: 1 });
-      }
-      updateCart();
-    }
+  function updateCart() {
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.qty;
+      total += itemTotal;
+      cartItems.innerHTML += `
+        <div class='cart-item'>
+          <span>${item.name} - NPR ${itemTotal}</span>
+          <span>
+            <button onclick='changeCartQty(${index}, -1)'>-</button>
+            ${item.qty}
+            <button onclick='changeCartQty(${index}, 1)'>+</button>
+            <button onclick='removeFromCart(${index})'>Remove</button>
+          </span>
+        </div>`;
+    });
+    totalAmountEl.textContent = total;
+    cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+  }
 
-    function updateCart() {
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        const itemTotal = item.price * item.qty;
-        total += itemTotal;
-        cartItems.innerHTML += `
-          <div class='cart-item'>
-            <span>${item.name} - NPR ${itemTotal}</span>
-            <span>
-              <button onclick='changeCartQty(${index}, -1)'>-</button>
-              ${item.qty}
-              <button onclick='changeCartQty(${index}, 1)'>+</button>
-              <button onclick='removeFromCart(${index})'>Remove</button>
-            </span>
-          </div>`;
-      });
-      totalAmountEl.textContent = total;
-      cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
-    }
-
-    function changeCartQty(index, delta) {
-      cart[index].qty += delta;
-      if (cart[index].qty <= 0) {
-        cart.splice(index, 1);
-      }
-      updateCart();
-    }
-
-    function removeFromCart(index) {
+  function changeCartQty(index, delta) {
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) {
       cart.splice(index, 1);
-      updateCart();
     }
+    updateCart();
+  }
 
-    cartIcon.addEventListener('click', () => {
-      document.getElementById('cart-section').scrollIntoView({ behavior: 'smooth' });
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  cartIcon.addEventListener('click', () => {
+    document.getElementById('cart-section').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Auto detect location and set address
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+        .then(response => response.json())
+        .then(data => {
+          const address = data.display_name;
+          document.getElementById('location').value = address;
+        })
+        .catch(err => {
+          console.error('Error fetching address:', err);
+          document.getElementById('location').value = `Lat: ${lat}, Lon: ${lon}`;
+        });
     });
+  }
 
-    // Auto detect location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-          .then(response => response.json())
-          .then(data => {
-            const address = data.display_name;
-            document.getElementById('location').value = address;
-          })
-          .catch(err => {
-            console.error('Error fetching address:', err);
-            document.getElementById('location').value = `Lat: ${lat}, Lon: ${lon}`;
-          });
-      });
+  document.getElementById('order-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (cart.length === 0) {
+      alert('Cart is empty! Add some items first.');
+      return;
     }
 
-    document.getElementById('order-form').addEventListener('submit', function(e) {
-      e.preventDefault();
+    const phone = document.getElementById('phone').value;
+    if (!/^9[78]\d{8}$/.test(phone)) {
+      alert('Please enter a valid Nepal mobile number (starts with 98/97)');
+      return;
+    }
 
-      if (cart.length === 0) {
-        alert('Cart is empty! Add some items first.');
-        return;
+    const address = document.getElementById('address').value.toLowerCase();
+    if (!address.includes('janakpur')) {
+      alert('Delivery is only available within Janakpur City, Nepal.');
+      return;
+    }
+
+    const orderSummary = cart.map(item => `${item.name} x ${item.qty}`).join(', ');
+    document.getElementById('orderDetails').value = orderSummary;
+
+    const formData = new FormData(this);
+
+    fetch('https://formspree.io/f/manjgeer', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    }).then(res => {
+      if (res.ok) {
+        document.getElementById('form-messages').textContent = 'Order placed successfully!';
+        saveOrderHistory(orderSummary);
+        cart = [];
+        updateCart();
+        this.reset();
+      } else {
+        document.getElementById('form-messages').textContent = 'Failed to place order.';
       }
-
-      const orderSummary = cart.map(item => `${item.name} x ${item.qty}`).join(', ');
-      document.getElementById('orderDetails').value = orderSummary;
-
-      const formData = new FormData(this);
-
-      fetch('https://formspree.io/f/manjgeer', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: formData
-      }).then(res => {
-        if (res.ok) {
-          document.getElementById('form-messages').textContent = 'Order placed successfully!';
-          cart = [];
-          updateCart();
-          this.reset();
-        } else {
-          document.getElementById('form-messages').textContent = 'Failed to place order.';
-        }
-      }).catch(err => {
-        document.getElementById('form-messages').textContent = 'Error occurred. Try again.';
-      });
+    }).catch(err => {
+      document.getElementById('form-messages').textContent = 'Error occurred. Try again.';
     });
-  </script>
+  });
+
+  function saveOrderHistory(orderSummary) {
+    const existingOrders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+    existingOrders.push({
+      time: new Date().toLocaleString(),
+      details: orderSummary
+    });
+    localStorage.setItem('orderHistory', JSON.stringify(existingOrders));
+  }
+</script>
 </body>
 </html>

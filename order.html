@@ -19,8 +19,6 @@
     input, select, textarea { width: 100%; padding: 8px; border:1px solid #ccc; border-radius:5px; }
     button { padding:8px 12px; border:none; border-radius:5px; background:#d84315; color:white; cursor:pointer; }
     button:hover { background:#bf360c; }
-    .quantity-counter { display:flex; align-items:center; gap:5px; }
-    .quantity-counter button { padding: 4px 8px; background:#ff9800; }
     #cart-icon {
       position: fixed;
       bottom: 20px;
@@ -73,6 +71,7 @@
         </select>
       </div>
       <input type="hidden" name="orderDetails" id="orderDetails">
+      <input type="hidden" name="location" id="location">
       <button type="submit">Place Order</button>
     </form>
     <div id="form-messages"></div>
@@ -172,6 +171,14 @@
     cartIcon.addEventListener('click', () => {
       document.getElementById('cart-section').scrollIntoView({ behavior: 'smooth' });
     });
+
+    // Auto detect location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const loc = `Lat: ${position.coords.latitude}, Lon: ${position.coords.longitude}`;
+        document.getElementById('location').value = loc;
+      });
+    }
 
     document.getElementById('order-form').addEventListener('submit', function(e) {
       e.preventDefault();

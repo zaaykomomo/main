@@ -175,8 +175,19 @@
     // Auto detect location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        const loc = `Lat: ${position.coords.latitude}, Lon: ${position.coords.longitude}`;
-        document.getElementById('location').value = loc;
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+          .then(response => response.json())
+          .then(data => {
+            const address = data.display_name;
+            document.getElementById('location').value = address;
+          })
+          .catch(err => {
+            console.error('Error fetching address:', err);
+            document.getElementById('location').value = `Lat: ${lat}, Lon: ${lon}`;
+          });
       });
     }
 
